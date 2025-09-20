@@ -86,27 +86,27 @@ the concept of 3G was introduced in 1999 naming it R99(Release 99) but later the
 <h3>Deployment Options (1–7):</h3>
 <ol>
 <li><b>Option 1:</b> The network in 4G and the RAN is eNodeB(4G RAN) <br>
-<img src="Option1.png" alt="NSA vs SA Overview" width="400"/></li>
+<img src="option1.png" alt="NSA vs SA Overview" width="400"/></li>
 <li><b>Option 2:</b> Main network is 5G core and RAN is gNodeB(5G RAN)<br>
-<img src="Option2.png" alt="NSA vs SA Overview" width="400"/> </li>
+<img src="option2.png" alt="NSA vs SA Overview" width="400"/> </li>
 <li><b>Option 3 (EN-DC):</b> While the main network is EPC(4G), there comes dual connectivity, both eNodeG and gNodeB co-exist<br>
 Option 3: The eNodeB connects to EPC and then shares the required network with gNodeB, no direct contact between EPC and gNodeB<br>
 Option 3a: The EPC is connected to both eNodeB and gNodeB which reduces the latency but due to absence of 4G RAN between EPC and 5G RAN comes with a risk in a area where 5G stability is not good.<br>
 Option 3x: the best and most common option so far, combination of option 3 and 3a, if 5G stability is good then direct path will be followed but if its not good then the path via eNodeB will be followed.<br>
-<img src="Option3.png" alt="NSA vs SA Overview" width="400"/></li>
+<img src="option3.png" alt="NSA vs SA Overview" width="400"/></li>
 <li><b>Option 4:</b> Main network is 5GC and dual connectivity is there <br>
 Option 4: 5GC is connected with gNodeB and gNodeB shares the required data with eNodeB<br>
 Option 4a: eNodeB and gNodeB are both directly connected with 5GC.<br>
 Option 4x: it is not a very likely option.<br>
-<img src="Option4.png" alt="NSA vs SA Overview" width="400"/>
+<img src="option4.png" alt="NSA vs SA Overview" width="400"/>
 </li>
 <li><b>Option 5:</b> The main network is 5GC, but device has access to LTE only, so the LTE is upgraded to understand the protocols of 5GC and then its called eLTE (e stands for enhanced)<br>
-<img src="Option5.png" alt="NSA vs SA Overview" width="400"/></li>
+<img src="option5.png" alt="NSA vs SA Overview" width="400"/></li>
 <li><b>Option 6:</b> Here the network is 4GC, but device has access to gNodeB only (it is not supported)<br>
-<img src="Option6.png" alt="NSA vs SA Overview" width="400"/></li>
+<img src="option6.png" alt="NSA vs SA Overview" width="400"/></li>
 <li><b>Option 7 (NG-EN-DC):</b> It is same as option 4 but the master access technology is eNodeB and secondary is gNodeB, this was the reason of the inexistence of Option 4x
 <br>
-<img src="Option7.png" alt="NSA vs SA Overview" width="400"/></li>
+<img src="option7.png" alt="NSA vs SA Overview" width="400"/></li>
 </ol>
 </li> 
 </ul>
