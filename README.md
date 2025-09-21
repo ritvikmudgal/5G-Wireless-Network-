@@ -110,3 +110,95 @@ Option 4x: it is not a very likely option.<br>
 </ol>
 </li> 
 </ul>
+<h1 align= "center"> <b><u>RAN Procotol stack</u></b></h1>
+<ol>
+<li><h2> User Plane Protocol stack</h2>
+<p>It support carying the user data from one application to another in the UE and Network</p><br>
+<img src= "user-stack.png" alt="user stack">
+<b><h3>Layers :</h3></b>
+<ul>
+<li><b>phy layer-</b> It is the closest to hardware and performs modulation, basically it converts bits into radio waves.
+<li><b>MAC layer-</b> It multiplexes, demultiplexes, schedules channels and all, basically decided which one will speak at what time and what frequency.
+<li><b>RLC layer-</b> It performs robust error detection and it's main work is to chop big data into smaller IP packets and later puts them back together in a process called reassembly. 
+<li><b>PDCP layer-</b> It reduces the size of packets and encrypts it and removes duplicates.
+<li><b>SDAP layer-</b> every packet can't be treated same. like, a voice call packet can't be treated same as a search packet from google, they have to be assigned to different bearers. SDAP does that work, it seggregates the packets based their QoS(Quality of Service).
+ <br>
+</ul>
+</h2>
+<li><h2> Control Plane Protocol stack</h2>
+<p>Supports carrying the control information between the user equipment and gNodeB 
+ </h2> <br><b><h3>Layers :</h3></b>
+<img src="control-stack.png" alt="Control stack">
+<br>All the layers are same except 2:
+<ul>
+<li><b>RRC layer-</b> It sets up the connection and then mentains it, works between UE and gNodeB.
+<li><b>NAS layer-</b> Connects directly from device to Core network skipping base station. It is also responsible for assigning IPs to devices.<br>
+<i>(In both the stacks, each layer provides services to the above layer and consumes services of the layers below, and each node communicates with the corresponding node, i.e: every node in UE communicates with corresponding node in gNodeB or core network)</i>
+</ul><br>
+<h1><b><u>Key RAN Procedures</u></b></h1>
+<ol>
+<li><h2>Initial Access</h2>
+The very first step a UE does when trying to connect to a 5G network. the UE finds the nearest gNodeB and learn its basic info like timing allignment, what frequency it uses, what ID the cell hac before connecting to it via the process of synchronisation.<br> <b>STEPS OF CELL SEARCH :</b>
+<ul>
+<li>UE detects the PSS (Primary Synchronisation Signal)→ gives timing within a slot and tells you the cell ID group.
+<li>UE detects the SSS (Secondary Synchronisation Signal) → gives frame timing and completes the cell identity (0–1007 unique IDs in 5G).
+<li>Inside PBCH (Physical Broadcast channel), UE reads the MIB (Master Information Block).then MIB gives system info like subcarrier spacing, system bandwidth, and scheduling for SIBs (more system info).</li>
+<i><b>[All three of these steps combines to form SSB (Sync Signal Block)]</b></i> <br><br>
+<b>There is a form called SSB burst:</b>
+in that, each beam has it's own SSB<br>
+<img src="SSB-burst.png" alt"SSB Burst">
+</ul>
+<li><h2>Random Access</h2>
+<ol type="A">
+<li><b>Triggers:</b> 
+<ul><li>when device wants to go from RRC idle to RRC connected, such as during power on or entering coverage area for the first time
+<li>When the device has to send Uplink data
+<li>When the sync has been lost with the current cell due to long period of inactivity.
+<li>When the sync has to be established with a new cell during handover.
+</ul>
+<li><b>Steps </b>
+<ul><li><b>Random Access Preamble: </b> The UE sends a preamble on PRACH (Physical Random Access CHannel) so that it estimates the timing offset (how far is UE), from multiple preambles UE picks one randomly.
+<li><b>Random Access Response:</b> The gNodeB responds with timing connection, temporary ID and resource for next uplink.
+<li><b>Scheduled Transmission (Msg3):</b> UE sends a message using uplink given which contains the UE identity, This step causes contention if multiple UEs pick same preamble.
+<li><b>Contention Resolution (Msg4): </b> The gNodeB sends a message that which UE's identity is accepted, if a UE can't see its ID it knows it lost and it retries.
+<li><b>Connection Setup: </b> After the resolution of contention, RRC and NAS procedure begins and secure connection setup starts.
+</ol>
+<h1><b><u>Identifiers</u></b></h1>
+5G has two major Identifiers: Device Identity and Subscription Identifier.<br>
+<ol> <li><b>Device Identity</b>
+<ul><b>PEI -</b> short for Permanent Equipment Identifier, Each UE has its own unique PEI which is stored in the device. It has two formats <br>
+<img src="IMEI.png" alt="IMEI"> <br> It takes accord of only Hardware serial number. <br>
+<br><img src="IMEISV.png" alt="IMEISV"><br>It considers software serial number too<br>
+<i>TAC- Type Allocation Code<br>
+SNR- Serial Number<br>
+CD-Check Digit<br>
+SD-Spare Digit<br>
+SVN-Software Version Number<br>
+</i></ul>
+<li><b>Subscription Identifier</b> 
+<ul><li><b>SUPI - </b> stands for Subscription Permanent Identity<br>
+If device has 5G network then IMSI (International Mobile Subscriber Identifier) will be used, If WiFi is connected then NAI (Network Access Identifier) will be used:<br>
+<img src="SUPI.png" alt="SUPI"><br>
+<i>MCC- Mobile Country Code<br>
+MNC- Mobile Network Code<br>
+MSIN- Mobile Subscriber Identification Number<br></i>
+<li><b>SUCI - </b>Stands for Subscryption Conealed Identity, to resolve the problem of IMSI catching, instead of directly sending IMSI, SUCI is sentand the Man in the middle doesn't have key to decrypt the encryption.<br><img src="SUCI.png" alt="SUCI"></li>
+<li><b>GUTI - </b>Stands for Globally Unique Temporary Identifier<br>
+<img src="GUTI.png" alt="GUTI">
+</li></ul></ol>
+<h1><b><u>Service based Architecture</u></b></h1>
+<ol><li><b>Microservices</b><br>
+Earlier there used to be a whole big Monolithic architecture <br> <img src="Monolithic.png" alt="Monolithic"><br>
+for any modification, this whole arch. has to be changed but after the introduction of Multiservices modification became easier, as it made whole system flexible. If a service is overloaded, just create one more of that one service only, and what not. All the microservices are connected with common simple interface. <br><img src="Microservices.png">
+<li><b>Service based Arch. Vs Refrence Point</b>
+<br><img src="SBAVSRP.png">
+<li><b>Interface between Network Functions: </b>
+It uses rest based interface, it has very simple commands<br><img src="Interface.png">
+<li><b>Service Registration</b><br> for ex. we're adding a new PCF to the Network, so this is how the task will be registered<br><img src="Service-Registration.png">
+<li><b>Service Discovery - NRF</b> <br>
+It tells how the NRF acts as an dictionary and helps in tracking the NFs<img src="Service-Discovery.png"><br> And this is how it works for ex if we've registered a PCF and now AMF wants to communicate with it but don't know where it is<br><img src="Service-Disc.png">
+<li><b>Service Request</b><br>
+Now that we've registered a PCF, found it's location, so now the AMF communicates with PCF and this is how it happens:<br>
+<img src="Service-request.png">
+<li><b>Call Flow for summary purpose: </b><br>
+<img src="Call-flow.png">
