@@ -114,7 +114,7 @@ Option 4x: it is not a very likely option.<br>
 <ol>
 <li><h2> User Plane Protocol stack</h2>
 <p>It support carying the user data from one application to another in the UE and Network</p><br>
-<img src= "control-stack.png" alt="user stack">
+<img src= "phy-layer.png" alt="user stack">
 <b><h3>Layers :</h3></b>
 <ul>
 <li><b>phy layer-</b> It is the closest to hardware and performs modulation, basically it converts bits into radio waves.
@@ -128,7 +128,7 @@ Option 4x: it is not a very likely option.<br>
 <li><h2> Control Plane Protocol stack</h2>
 <p>Supports carrying the control information between the user equipment and gNodeB 
  </h2> <br><b><h3>Layers :</h3></b>
-<img src="layers.png" alt="Control stack">
+<img src="control-stack.png" alt="Control stack">
 <br>All the layers are same except 2:
 <ul>
 <li><b>RRC layer-</b> It sets up the connection and then mentains it, works between UE and gNodeB.
