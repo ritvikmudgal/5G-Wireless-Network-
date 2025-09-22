@@ -114,7 +114,7 @@ Option 4x: it is not a very likely option.<br>
 <ol>
 <li><h2> User Plane Protocol stack</h2>
 <p>It support carying the user data from one application to another in the UE and Network</p><br>
-<img src= "user-stack.png" alt="user stack">
+<img src= "userstack.png" alt="user stack">
 <b><h3>Layers :</h3></b>
 <ul>
 <li><b>phy layer-</b> It is the closest to hardware and performs modulation, basically it converts bits into radio waves.
