@@ -202,3 +202,12 @@ Now that we've registered a PCF, found it's location, so now the AMF communicate
 <img src="Service-request.png">
 <li><b>Call Flow for summary purpose: </b><br>
 <img src="Call-flow.png">
+<h1><b><u>Registration Procedure</u></b></h1>
+<ol><li><b>Initial Registration</b>
+When a Device is powered on, an initial registration takes place.
+<li><b>Periodic Registration</b>
+A periodic registration has to take place periodically to ensure that the device hasn't ran out of battery or broken in some sense.
+<li><b>Mobility Registration</b>
+While travelling, the device have to register itself.
+<li><b>Emergency Registration</b> 
+If a device doesn't have subscription, still if it wants to use emergency service,it will have to register itself.
