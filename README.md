@@ -60,7 +60,7 @@ the concept of 3G was introduced in 1999 naming it R99(Release 99) but later the
     <ul>
     <li><b>AMF:</b> Access and mobility management. Supports the device to move between diff radio cells, establishes encrypted signal in device which helps it in registering to get the access</li>
     <li><b>UDM:</b>User Data Management, manages user's subscription and all and supports AMF with that data in establishing access</li>
-    <li><b>SMF:</b> Session management. provides IPs when session is running and releases the session when activity is done by user</li>
+    <li><b>SMF:</b> Session management.establishes and manages PDU sessions,interacts with PCF for policy discussion about QoS, provides IPs when session is running and releases the session when activity is done by user</li>
     <li><b>UPF:</b> User data forwarding.</li>
     <li><b>AUSF:</b> Authentication and security.Manages the security part of the system</li>
     <li><b>PCF:</b> Policy control and QoS decisions.Manages the policies like if a user is not allowed to access network in a certain area, PCF will come to play and stops the access</li>
@@ -211,3 +211,22 @@ A periodic registration has to take place periodically to ensure that the device
 While travelling, the device have to register itself.
 <li><b>Emergency Registration</b> 
 If a device doesn't have subscription, still if it wants to use emergency service,it will have to register itself.
+</ol>
+<h1><b><u>Key Features</u></b></h1>
+<ol>
+<li>Dual connectivity</li>
+<li>Small Cells</li>
+<li>Increased Spectrum</li>
+<li>Radio enhancement</li>
+<li>Beam Forming and Steering</li>
+<li>Cloud RAN</li>
+</ol>
+<h1><b><u>MIMO Vs Beamforming</u></b></h1>
+<ul>
+<li><b>MIMO-</b> stands for Multiple input multiple output, multiple antennas are used at both reciever and trasmitter sides and, sends multiple data streams in parallel to improve data speed and capacity</li>
+<li><b>Beamforming-</b> uses antennas to focus signal in one direction instead of broadcasting everywhereto improve signal strength, coverage and reliability.<br>frequency suited for it is above 6GHz</li></ul>
+<h1><b><u>PDU Sessions</u></b></h1>
+stands for Protocol Data unit, in 5G every bit of data travels in the form of IP packets and to do all that, the network needs to establish a PDU session
+<h1><b><u>Control plane Flow</u></b></h1>
+When UE attaches → AMF handles login → AUSF verifies → UDM provides profile → SMF sets up data path → PCF applies rules.
+
