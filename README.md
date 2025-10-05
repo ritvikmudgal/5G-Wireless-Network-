@@ -229,4 +229,11 @@ If a device doesn't have subscription, still if it wants to use emergency servic
 stands for Protocol Data unit, in 5G every bit of data travels in the form of IP packets and to do all that, the network needs to establish a PDU session
 <h1><b><u>Control plane Flow</u></b></h1>
 When UE attaches → AMF handles login → AUSF verifies → UDM provides profile → SMF sets up data path → PCF applies rules.
-
+<h1><b><u>Power On procedure</b></h1>
+<ol>
+    <li>UE discovers nearby cells by reading their PSS and SSS</li>
+    <li>Authentication process begins via AKA(Authentication and Key Agreement) which relies on a secret key that is used for a mutual connection</li>
+    <li>UE context installation process begins, what is the bandwidth, what is the subscriber status, etc</li>
+    <li>UE performs a policy check based on time of the day, location of the user,network congestion, etc</li>
+    <li>A temporary ID gets allocated to subscriber, called TMSI</li>
+</ol>
