@@ -237,7 +237,7 @@ When UE attaches → AMF handles login → AUSF verifies → UDM provides profil
     <li>UE performs a policy check based on time of the day, location of the user,network congestion, etc</li>
     <li>A temporary ID gets allocated to subscriber, called TMSI</li>
 </ol>
-<h1><b><u>More about Service Based Architecture</b></h1>
+<h1><b><u>More about Service Based Architecture</u></b></h1>
 <ul>
     <li>The communication between NFs is done using HTTP/2, it is widely deployed so it has well developed security mechanisms and third party applications, In web HTTP/2 works with different type of files like jpg, pdf, HTML. But in 5G core it only works with .json content </li>
     <li>The context, QoS policies or any registration in NF is a type of Resource and Resources are locsted and manipulated as Uniform Resource Identifier (URI)</li>
@@ -249,6 +249,7 @@ When UE attaches → AMF handles login → AUSF verifies → UDM provides profil
         <li>Delete- Deletes a resource</li>
         <li>POST- to create a resource, to process that enclosed resource, to execute a remote call</li>
     </li>
+    </ol>
         <li>The HTTP responses are:
         <ol>
             <li>2xx- Success
@@ -264,12 +265,19 @@ When UE attaches → AMF handles login → AUSF verifies → UDM provides profil
                 <li>404- not found</li>
             </ul>
             </li>
-             <li>4xx- Server error
+             <li>5xx- Server error
             <ul>
                 <li>500- Internal server error</li>
                 <li>503- Server unreachable</li>
             </ul>
             </li>
-                
         </li>
+        </ol>
+    <li>
+    Naming Schemes:<br>
+    <img src="Naming-scheme.png">
+    </li>
+    <li>REST is an architectural style for softwares and the rules of REST are applied on HTTP protocol and these are the principles of REST based design<br>
+    <img src="REST-RULES.png">
+    
 </ul>
