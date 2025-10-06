@@ -473,3 +473,80 @@ They show how the control-plane connection between UE and Core is maintained.<br
       <li>Enables automatic QoS adaptation.</li>
     </ul>
   </li>
+</ul>
+<h2><b><u>5G NR Air interface</u></b></h2>
+<ul type="disc">
+<li>Channel Bandwidth - Total spectrum assigned to a 5G carrier
+<li> Maximum Transmission Bandwidth Configuration- Portion of that channel actually used for transmission.
+<li>Difference Between Global and Channel Raster- 
+<ol type="I"><li>Global Raster: All possible frequency points (every 5 kHz step) in the NR band.
+
+<li>Channel Raster: Specific frequency points where a carrier can actually be placed.</ol>
+<li>Bandwidth Part (BWP) in 5G- <br>
+A subset of the total carrier bandwidth assigned to a UE.It can switch between BWPs for power saving.
+<li>5G NR Model for Air Interface Channels:<br>
+5G defines channels at three layers:
+<ol type="I"><li>Logical Channels – What data (type of info).
+
+<li>Transport Channels – How data is transferred.
+
+<li>Physical Channels – Actual radio transmission.
+</ol>
+<li>Channel Model- Logical → Transport → Physical layers.</li>
+<li>Logical Channels <ol type="I">
+<li>BCCH- Broadcast system info (MIB/SIB).
+<li>PCCH- Paging messages.
+<li>CCCH- Connection setup messages.
+<li>DCCH- Dedicated control messages (RRC).
+<li>DTCH- Dedicated data (user payload).
+</li>
+</ol>
+<li>Transport Channels <ol type="I">
+<li>BCH- Carrys BCCH
+<li>DL-SCH- Main downlink shared channel
+<li>PCH- Carries paging.
+<li>UL-SCH- Main uplink shared channel.
+<li>RACH- Used for random access (Msg1, Msg3).
+</li></li></ol>
+<li>Physical Channels <ol type="I">
+<li>PBCH-  Physical Broadcast Channel (MIB).
+<li>PDCCH- Control channel for scheduling.
+<li>PDSCH- Data channel in downlink.
+<li>PUCCH- Control in uplink (ACK/NACK, SR).
+<li>PUSCH- Uplink user data.
+<li>PRACH- Used in random access.
+</li>
+</ol>
+<li>Demodulation Reference Signal (DM-RS): Helps the receiver estimate channel conditions for decoding data.
+<li>Sounding Reference Signal (SRS): Sent from UE → gNB to help gNB measure uplink channel quality. Used for uplink scheduling and beamforming.
+<li>Phase Tracking Reference Signal (PT-RS): Corrects phase noise in high-frequency bands (mmWave). Maintains synchronization for accurate demodulation.
+<li>Procedures to Understand 5G Channels:
+<ol> <li>Broadcast (MIB/SIBs) → Get system info.
+
+<li>Paging → Notify UE for incoming data.
+
+<li>Random Access (RACH) → Initial access.
+
+<li>Scheduled Transmission → Regular data transfer.
+
+<li>Handover → Seamless mobility.</ol>
+<li>5G NR Cell Acquisition: Beam Sweeping:<br>
+In 5G, gNB transmits synchronization signals directionally in beams instead of omnidirectionally.
+<br>UE scans beams → selects the best one → synchronizes.
+<li>Master Information Block (MIB)- 
+Broadcasts on PBCH.<br>
+Contains:<ol type="I">
+
+<li>System frame number,
+
+<li>Subcarrier spacing,
+
+<li>Bandwidth Part info,
+
+<li>SIB1 scheduling info.
+</ol>
+It is the first thing UE decodes after sync
+<li>Paging Process:
+Used to notify idle UEs about incoming data or calls.
+<br>Sent through PCCH → PCH → PDCCH/PDSCH.
+<br>UE wakes periodically to check paging frame (DRX cycle).
