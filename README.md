@@ -229,7 +229,7 @@ If a device doesn't have subscription, still if it wants to use emergency servic
 stands for Protocol Data unit, in 5G every bit of data travels in the form of IP packets and to do all that, the network needs to establish a PDU session
 <h1><b><u>Control plane Flow</u></b></h1>
 When UE attaches → AMF handles login → AUSF verifies → UDM provides profile → SMF sets up data path → PCF applies rules.
-<h1><b><u>Power On procedure</b></h1>
+<h1><b><u>Power On procedure</u></b></h1>
 <ol>
     <li>UE discovers nearby cells by reading their PSS and SSS</li>
     <li>Authentication process begins via AKA(Authentication and Key Agreement) which relies on a secret key that is used for a mutual connection</li>
@@ -278,6 +278,210 @@ When UE attaches → AMF handles login → AUSF verifies → UDM provides profil
     <img src="Naming-scheme.png">
     </li>
     <li>REST is an architectural style for softwares and the rules of REST are applied on HTTP protocol and these are the principles of REST based design<br>
-    <img src="REST-RULES.png">
+    <img src="REST-RULES.png"></li>
     
 </ul>
+<h1><b><u>Network Slicing</u></b></h1>
+<ul><li>A network Slice instance is identified by the value of Slice/Service Type (SST)which is of 8 bit, for different values the service type is different <br>
+<ul type="circle"><li>1- eMBB(enhanced Mobile broadband )</li>
+<li>2- URLLC (Ultra Reliable Low Latency Communication)</li>
+<li>3-  MIoT (Massive Internet of Things)</li>
+<li>4- V2X (Vehicle to evrything)</li>
+<li>5-127- Reserved for the future use</li>
+<li>128-255- Used by operator to design its own slice</li></ul>
+<li>At one time, a UE can be assigned with 8 Network slices at max, AMF will be same for all the sessions, but these slices can have multiple SMFs/UPFs</li>
+<li>The Network Slice have 4 phases in its life cycle: prepareation, configuration and activation, Run time phase and lastly decommision. All the tasks in each phase are manages by NSMF(Network Slice Management Function)</li>
+<li>In NSMM(Network Slice management model), the user gives its requirement to the Communication service provider which further translates it into a format which Network Slice provider can understand using CSMF and it is based on network type network capacity, QoS requirements then NSP further translates it into a format which NSSP can understand using NSMF and then the NSSP manages the NSSIs using NSSMF based on the requirements received from NSMF.<br><img src="NSMM.png">
+</ul>
+<h1><b><u>Voice over 5G</u></b></h1>
+<ul type="disc">
+<li>Introduction: <ul type="circle"><li>In 4G, voice calls used VoLTE (Voice over LTE), which sent calls as data packets instead of traditional circuit-switched voice.
+
+<li>In 5G, the same concept continues — it’s called VoNR (Voice over New Radio) or Voice over 5G.
+
+<li>Here, voice is transmitted over the 5G data network (NR + 5G Core) using IMS (IP Multimedia Subsystem).
+
+<li>If 5G coverage is weak, the call may fall back to 4G (EPS fallback) to use VoLTE.
+</ul>
+<li>Codecs: Codec is used to compress and decompress the voice at reciever and transmitter end<br>There are two codecs:
+<ul type="circle"><li>EVS: Enhanced Voice service, it robusts delay jitter and packet losses</li>
+<li>IVAS: Immersive Voice and audio Services, it is compatible from mono, sterio to fully immersive VRs, but its still under developement</li>
+</ul>
+<li>Session Initiation Protocol:
+<ul type="circle">
+<li>SIP is a signaling protocol used to set up, modify, and end voice/video calls over IP.
+
+<li>It doesn’t carry voice data — it only handles control (call start, ring, connect, end).
+
+<li>Actual voice packets flow via RTP (Real-time Transport Protocol) once SIP sets the session.
+</ul>
+<li>IP Multimedia Subsystem: <ul type="circle">
+<li>IMS is the core network framework that enables IP-based voice, video, and messaging services (VoNR, VoLTE, etc.).
+
+<li>It sits on top of the 5G Core (5GC) and works using SIP signaling.
+
+<li>IMS connects the user (UE) to services like voice, video calls, conference calling.
+<li>It has three main components:
+    <ul><li>P-CSCF: It is like an entry point, forwards SIP and ensures security</li>
+    <li>I-CSCF: It works like a router and finds user's serving node</li>
+    <li>S-CSCF: It controls calls, Manages SIP sessions and features</li>
+    <li>TAS: It provides actuall voice services, (like forwarding, call waiting, conference calling, voicemail, etc)
+    </ul>
+    </ul>
+
+  <li>P-CSCF Discovery
+    <ul type="circle">
+      <li>UE connects to 5G Core and creates a PDU session for IMS.</li>
+      <li>Discovers P-CSCF using DHCP or NAS signaling.</li>
+      <li>P-CSCF acts as the entry point to IMS.</li>
+    </ul>
+  </li>
+
+  <li>UE Registration with IMS
+    <ul type="circle">
+      <li>UE sends SIP REGISTER to P-CSCF.</li>
+      <li>P-CSCF forwards it to I-CSCF.</li>
+      <li>I-CSCF queries UDM/HSS for correct S-CSCF.</li>
+      <li>S-CSCF authenticates UE via UDM and returns SIP 200 OK.</li>
+      <li>UE is now successfully registered in IMS.</li>
+    </ul>
+  </li>
+
+  <li> Third Party Registration
+    <ul type="circle">
+      <li>S-CSCF performs additional registration with TAS or voicemail servers.</li>
+      <li>Enables features like call forwarding or conferencing.</li>
+    </ul>
+  </li>
+
+  <li>SIP Signaling for Call Setup
+    <ul type="circle">
+      <li>UE-A sends SIP INVITE through IMS to UE-B.</li>
+      <li>UE-B sends SIP RINGING, then SIP 200 OK (call accepted).</li>
+      <li>UE-A replies with SIP ACK to confirm.</li>
+      <li>RTP media flow starts via UPF using EVS/AMR-WB codec.</li>
+    </ul>
+  </li>
+
+  <li>Call Teardown
+    <ul type="circle">
+      <li>Caller sends SIP BYE; receiver replies SIP 200 OK.</li>
+      <li>IMS releases bearer; IMS PDU session remains active.</li>
+    </ul>
+  </li>
+</ul>
+<h1><b><u>UE state Management</u></b></h1>
+<ul type="disc">
+<li>The UE (User Equipment) in 5G doesn’t always stay connected to the network.
+
+<li>To save power and reduce signaling, the UE switches between different states depending on whether it is active, idle, or temporarily inactive.
+
+<li>These states are managed by:
+
+RRC (Radio Resource Control) in the RAN, and
+CM (Connection Management) and RM (Registration Management) in the 5G Core (5GC).
+</ul>
+<ol type="I">
+<li>RRC: <ul type="circle">
+<li>RRC Idle- Here UE is not connected to gNB but still registered with the network,It listens to broadcast signals, can receive paging messages, and can reconnect when needed, basically a power saving mode.
+<li>RRC Connected- here the UE hasactive connection with gNB, it sends/recieves user data and network knows exact UE location at cell level
+<li>RRC inactive- a new concept that was not in 4G, It’s a middle state between IDLE and CONNECTED.
+the UE keeps its context stored in gNB and AMF, so reconnecting is fast also UE doesn’t exchange data continuously but can wake up quickly.
+</ul>
+<li>CM state (Connection Management):
+<br>CM states belong to the 5G Core (AMF).
+They show how the control-plane connection between UE and Core is maintained.<br> It also has two phases CM idle and CM connected same as RRC.
+<li>RM state (Registration Management): <br>RM states show whether UE is registered to access the 5G Core.
+<ul type ="circle">
+      <li><b>RM-DEREGISTERED:</b> UE not registered to 5G Core; needs to register again.</li>
+      <li><b>RM-REGISTERED:</b> UE successfully registered to Core; can use services.</li>
+    </ul>
+    </ol>
+<h1><b><u>All about PDU session</u></b></h1>
+<ul type="disc">
+<li>Types of PDU sessions:
+<ul type="circle">
+<li>IPv4 – Traditional IP address type (e.g., 192.168.1.1).
+<li>IPv6 – Next-gen IP address type.
+<li>IPv4v6 – Dual-stack, supports both IPv4 and IPv6.
+<li>Ethernet – For enterprise private networks or LAN bridging.
+<li>Unstructured – For non-IP data (like IoT).
+</ul>
+<li>QoS rule for QoS flow:
+<ul type="circle">
+<li>Inside each PDU session, data is further divided into QoS Flows.
+<li>Each flow has a QoS Rule which defines:
+<ul>
+<li>Which packets belong to the flow (via packet filters),
+
+<li>What QoS level they get (priority, delay, etc.),
+
+<li>And how they’re treated in the network.
+</ul>
+</ul>
+<li>Two Types of QoS flows:
+<ul type="circle">
+<li>GBR(Guaranteed Birate)- means that Network guarantees a certain data rate for the flow
+<li>Non GBR- there is no guaranteed rate, it uses leftover bandwidth
+</ul>
+<li>Allocation and Retention Priority (ARP)
+    <ul type="circle">
+      <li>Defines which sessions get priority during congestion.</li>
+      <li>Parameters:
+      <ul>
+       <li>Priority level- 1(highest) to 15(lowest)
+       <li> Pre-emption capability- can it replace others?
+       <li>Pre-emption vulnerability- Can it be replaced by others?</li>
+    </ul>
+  </li>
+  </ul>
+  <li>5G QoS Identifier (5QI)
+    <ul type="circle">
+      <li>Numeric ID defining QoS behavior.</li>
+      <li>Specifies priority, delay, and packet error rate</li>
+      <li>Example: 5QI=1 for voice has delay of 100ms, 5QI=9 for data has delay of 300ms.</li>
+    </ul>
+  </li>
+  <li>GBR QoS Parameters: GFBR, MFBR, Notification
+    <ul type="circle">
+      <li><b>GFBR:</b> Guaranteed Flow Bit Rate.</li>
+      <li><b>MFBR:</b> Maximum Flow Bit Rate.</li>
+      <li><b>Notification:</b> Alerts UE if QoS cannot be met.</li>
+    </ul>
+  </li>
+
+  <li>Non-GBR Parameters: AMBR & RQA
+    <ul type="circle">
+      <li><b>Session-AMBR:</b> Limit for non-GBR flows in one PDU.</li>
+      <li><b>UE-AMBR:</b> Limit across all sessions for UE.</li>
+      <li><b>RQA:</b> Reflective QoS Attribute.</li>
+    </ul>
+  </li>
+
+  <li>Packet Filters
+    <ul type="circle">
+      <li>Used to map IP packets to QoS flows.</li>
+      <li>Defined by IP, port, and protocol info.</li>
+      <li>Example: Port 80 → Non-GBR; Port 5004 → GBR.</li>
+    </ul>
+  </li>
+
+  <li>5G Reflective QoS (RQoS)
+    <ul type="circle">
+      <li>UE mirrors QoS of downlink packets to uplink.</li>
+      <li>Reduces signaling load.</li>
+      <li>Enables automatic QoS adaptation.</li>
+    </ul>
+  </li>
+</ul>
+<h2><b><u>5G NR Air interface</u></b></h2>
+<ul type="disc">
+<li>Channel Bandwidth - Total spectrum assigned to a 5G carrier
+<li> Maximum Transmission Bandwidth Configuration- Portion of that channel actually used for transmission.
+<li>Difference Between Global and Channel Raster- 
+<ol type="I"><li>Global Raster: All possible frequency points (every 5 kHz step) in the NR band.
+
+<li>Channel Raster: Specific frequency points where a carrier can actually be placed.</ol>
+<li>Bandwidth Part (BWP) in 5G- <br>
+A subset of the total carrier bandwidth assigned to a UE.It can switch between BWPs for power saving.
+
