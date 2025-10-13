@@ -596,7 +596,8 @@ Used to notify idle UEs about incoming data or calls.
 RRC falls under O-CU-CP and PDCP falls under O-CU-UP.
 <li>SMO: stands for Service Management and orchestration, we know that the entities DU and CU are hosted on cloud, so SMO-O2 is used to manage O-Cloud and SMO-O1 is used to manage DU and CU
 <br>the O1 interface  is also used in data collection via Key Performance indicator (KPIS) and to configure data like how many slices are there in RAN, etc.
-<br>There is one more interface which is Open FH M-plane and used to manage the fronthaul between DU and RU.
+<br>There is one more interface which is Open FH M-plane and used to manage the fronthaul between DU and RU.<br>
+    <img src="FCAPS.png">
 <li>RIC: stands for RAN intelligent Controller, responsible for controlling and potimizing RAN functions
 <ul type="disc">
 <li>Non Realtime RIC: it is responsible for policies for controlling RAN functions.
@@ -646,7 +647,7 @@ RRC falls under O-CU-CP and PDCP falls under O-CU-UP.
           <li>Containerized (using Kubernetes)</li>
         </ul>
       </li>
-    </ul>
+    </ul></li></ul>
   </li>
 <ul type="square">
   <li>O-RAN Traffic Steering (TS) App Example - Problem of Traditional TS
@@ -697,5 +698,9 @@ RRC falls under O-CU-CP and PDCP falls under O-CU-UP.
       <li>Forms the physical execution layer of the O-RAN architecture.</li>
     </ul>
   </li>
+  <li>JSON format: <br>
+  <img src="JSON.png">
+  </li>
 </ul>
+
 >>>>>>> 966ff78f8668a327c76f5654f651d536518cdc86
