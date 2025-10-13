@@ -484,4 +484,218 @@ They show how the control-plane connection between UE and Core is maintained.<br
 <li>Channel Raster: Specific frequency points where a carrier can actually be placed.</ol>
 <li>Bandwidth Part (BWP) in 5G- <br>
 A subset of the total carrier bandwidth assigned to a UE.It can switch between BWPs for power saving.
+<<<<<<< HEAD
 
+=======
+<li>5G NR Model for Air Interface Channels:<br>
+5G defines channels at three layers:
+<ol type="I"><li>Logical Channels – What data (type of info).
+
+<li>Transport Channels – How data is transferred.
+
+<li>Physical Channels – Actual radio transmission.
+</ol>
+<li>Channel Model- Logical → Transport → Physical layers.</li>
+<li>Logical Channels <ol type="I">
+<li>BCCH- Broadcast system info (MIB/SIB).
+<li>PCCH- Paging messages.
+<li>CCCH- Connection setup messages.
+<li>DCCH- Dedicated control messages (RRC).
+<li>DTCH- Dedicated data (user payload).
+</li>
+</ol>
+<li>Transport Channels <ol type="I">
+<li>BCH- Carrys BCCH
+<li>DL-SCH- Main downlink shared channel
+<li>PCH- Carries paging.
+<li>UL-SCH- Main uplink shared channel.
+<li>RACH- Used for random access (Msg1, Msg3).
+</li></li></ol>
+<li>Physical Channels <ol type="I">
+<li>PBCH-  Physical Broadcast Channel (MIB).
+<li>PDCCH- Control channel for scheduling.
+<li>PDSCH- Data channel in downlink.
+<li>PUCCH- Control in uplink (ACK/NACK, SR).
+<li>PUSCH- Uplink user data.
+<li>PRACH- Used in random access.
+</li>
+</ol>
+<li>Demodulation Reference Signal (DM-RS): Helps the receiver estimate channel conditions for decoding data.
+<li>Sounding Reference Signal (SRS): Sent from UE → gNB to help gNB measure uplink channel quality. Used for uplink scheduling and beamforming.
+<li>Phase Tracking Reference Signal (PT-RS): Corrects phase noise in high-frequency bands (mmWave). Maintains synchronization for accurate demodulation.
+<li>Procedures to Understand 5G Channels:
+<ol> <li>Broadcast (MIB/SIBs) → Get system info.
+
+<li>Paging → Notify UE for incoming data.
+
+<li>Random Access (RACH) → Initial access.
+
+<li>Scheduled Transmission → Regular data transfer.
+
+<li>Handover → Seamless mobility.</ol>
+<li>5G NR Cell Acquisition: Beam Sweeping:<br>
+In 5G, gNB transmits synchronization signals directionally in beams instead of omnidirectionally.
+<br>UE scans beams → selects the best one → synchronizes.
+<li>Master Information Block (MIB)- 
+Broadcasts on PBCH.<br>
+Contains:<ol type="I">
+
+<li>System frame number,
+
+<li>Subcarrier spacing,
+
+<li>Bandwidth Part info,
+
+<li>SIB1 scheduling info.
+</ol>
+It is the first thing UE decodes after sync
+<li>Paging Process:
+Used to notify idle UEs about incoming data or calls.
+<br>Sent through PCCH → PCH → PDCCH/PDSCH.
+<br>UE wakes periodically to check paging frame (DRX cycle).
+</ul>
+<h1 align="center">O-RAN</h2>
+<ul><li>Traditional Basestation-<br>
+<ul type="disc"><li>BBU-Performs baseband processing of the signal recieved from the 5GC
+<li>RU- modulates that signal into carrier band and sends it to the antenna via RF cable</ul>
+<li>Contemporary basestation-
+<ul type="disc">
+<li>The RU moved closer to the antenna to avoid the power loss through RF cable.
+<li>The connection between RU and BBU is called Fronthaul
+<li>The connection between 5GC and BBU is called Backhaul</ul>
+<li>v-RAN- <br>
+<ul type="disc">
+<li>Instead of using proprietry hardware, COTS (Commercial of The Shelf is used.
+<li>All the functions of BBU are implemented on software.
+<li>Multiple fuctions from different BBUs are implemented on same CoTS using virtualization Layer. which is why it is called V-RAN instead of V-Basestation 
+<li>v-RAN is not Open as the fronthaul is still proprietry.</ul>
+<li>D-RAN- in distributed RAN, the BBUs are placed near the site Antenna, fronthaul is less expensive, low latency.
+<li>C-RAN- in central RAN, the BBUs are placed at a central location, expensive fronthaul
+<li>Cloud-RAN- the BBU is still at a central location but the BBU functionalities are implemented on cloud, which makes it easier to scale.
+<li>RAN Split Options</u></h2>
+<ul type="disc">
+  <li><b>Option 1:</b> No split; all layers in one unit (legacy LTE style).</li>
+  <li><b>Option 2:</b> Split between PDCP (CU) and RLC (DU); allows centralized control and virtualization.</li>
+  <li><b>Option 6:</b> Split between MAC (DU) and PHY (RU); low latency but needs high-speed link.</li>
+  <li><b>Option 8:</b> Split between PHY and RF; used in C-RAN with fiber connections.</li>
+  <li><b>Logical View:</b> CU → PDCP & RRC; DU → RLC, MAC, High-PHY; RU → Low-PHY & RF.</li>
+  <li><b>eCPRI Protocol:</b> Ethernet-based fronthaul interface for DU-RU communication, replacing traditional CPRI to save bandwidth and cost.</li>
+</ul>
+<li><b>Option 7.2x:</b> Split between High-PHY (DU) and Low-PHY (RU) on the fronthaul and split-2 used on the midhaul; standard in Open RAN systems.<br>Advantages:<ul type="disc">
+<li>very simple
+<li>small in size so can be installed easily
+<li>since all the functions in O-DU and O-CU require high processing so we can deploy them on COTS/Cloud.
+</ul></li>
+<li>The lower the split number → the more is done at the antenna site (hardware).<br>
+<li>The higher the split number → the more is done virtually (software).
+<li><b>Logical View:</b> CU → PDCP & RRC; DU → RLC, MAC, High-PHY; RU → Low-PHY & RF.</li>
+  <li><b>eCPRI Protocol:</b> Ethernet-based fronthaul interface for DU-RU communication, replacing traditional CPRI to save bandwidth and cost.</li>
+<li>Open-RAN: It is nothing but an overall movement of disaggregation of hardware and software and the creation of open interfaces b/w them.
+<li>O-RAN: It refers to the Open RAN architecture and specifications that has been proposed by O-RAN alliance.
+<li>Control plane and User plane disaggregation: CU is further divided into O-CU-CP and O-CU-UP, so that if we want low latency for edge computing we can move the User plane towards cell site along with the DU.<br>
+RRC falls under O-CU-CP and PDCP falls under O-CU-UP.
+<li>SMO: stands for Service Management and orchestration, we know that the entities DU and CU are hosted on cloud, so SMO-O2 is used to manage O-Cloud and SMO-O1 is used to manage DU and CU
+<br>the O1 interface  is also used in data collection via Key Performance indicator (KPIS) and to configure data like how many slices are there in RAN, etc.
+<br>There is one more interface which is Open FH M-plane and used to manage the fronthaul between DU and RU.
+<li>RIC: stands for RAN intelligent Controller, responsible for controlling and potimizing RAN functions
+<ul type="disc">
+<li>Non Realtime RIC: it is responsible for policies for controlling RAN functions.
+<li>Near realtime RIC: sends directive to the E2 interface on the basis of policies and feedback. it also collects real time KPIs</ul>
+<li>Third party Apps: Used to manage O-RAN functions and they are independent of Non-RT/nRT RICs because of the open interface.
+<ul type="disc">
+<li>rApps- Works on the Non-RT RICs
+<li>xApps- Works on the nRT RICs
+</ul>
+  <li>Evolution of Virtualization (PNFs)
+    <ul type="disc">
+      <li>Earlier networks used dedicated hardware for each function called Physical Network Functions (PNFs).</li>
+      <li>PNFs were vendor-locked, expensive, and hard to scale.</li>
+      <li>Virtualization evolved to replace PNFs with software-based implementations.</li>
+    </ul>
+  </li>
+ <li>Virtual Network Functions (VNFs)
+    <ul type="disc">
+      <li>VNFs run as software on virtual machines, replacing physical hardware.</li>
+      <li>support automation and scaling.</li>
+      <li>Still limited due to heavy monolithic structure.</li>
+    </ul>
+  </li>
+
+  <li>Monolithic Applications as VNFs
+    <ul type="disc">
+      <li>Early VNFs were single large applications inside VMs.</li>
+      <li>Hard to update or scale individual parts; full restart required on failure.</li>
+    </ul>
+  </li>
+
+  <li>Cloud-Native Network Functions (CNFs)
+    <ul type="disc">
+      <li>Built using containers and microservices on Kubernetes.</li>
+      <li>Each function runs independently and communicates via APIs.</li>
+      <li>Highly scalable, flexible, and cloud-ready.</li>
+    </ul>
+  </li>
+
+  <li>O-Cloud Deployment Options
+    <ul type="disc">
+      <li>O-Cloud hosts O-RAN workloads like CU, DU, RIC, and SMO.</li>
+      <li>Deployment can be:
+        <ul type="circle">
+          <li>Bare Metal (direct on hardware)</li>
+          <li>Virtualized (on hypervisors like KVM)</li>
+          <li>Containerized (using Kubernetes)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+<ul type="square">
+  <li>O-RAN Traffic Steering (TS) App Example - Problem of Traditional TS
+    <ul type="disc">
+      <li>Traditional TS relied on fixed, vendor-specific algorithms based on signal strength.</li>
+      <li>Could not adapt to user mobility or traffic imbalance.</li>
+      <li>Resulted in overloaded cells and poor user experience.</li>
+    </ul>
+  </li>
+
+  <li>Advantages of TS using O-RAN
+    <ul type="disc">
+      <li>AI/ML-driven dynamic load balancing and vendor-neutral optimization.</li>
+      <li>Closed-loop feedback between RAN and RIC improves QoE.</li>
+      <li>Allows third-party developers to create and deploy TS applications.</li>
+    </ul>
+  </li>
+
+  <li>Required Data (KPI) Collection for TS
+    <ul type="disc">
+      <li>UE KPIs: RSRP, RSRQ, SINR, throughput, CQI.</li>
+      <li>Cell KPIs: PRB utilization, load, handover success rate.</li>
+      <li>QoS KPIs: latency, packet loss, per-slice throughput.</li>
+      <li>Energy KPIs: node-level power consumption.</li>
+    </ul>
+  </li>
+
+  <li>Role of Non-RT RIC in TS
+    <ul type="disc">
+      <li>Handles long-term optimization and AI/ML model training.</li>
+      <li>Sends high-level policies to Near-RT RIC via the A1 interface.</li>
+      <li>Part of the SMO layer, operating on timescales >1 second.</li>
+    </ul>
+  </li>
+
+  <li>Role of Near-RT RIC in TS
+    <ul type="disc">
+      <li>Executes xApps such as Traffic Steering with 10 ms–1 s response.</li>
+      <li>Applies policies and real-time actions via E2 interface.</li>
+      <li>Balances traffic by adjusting UE-cell associations and handovers.</li>
+    </ul>
+  </li>
+
+  <li>Role of E2 Node in TS
+    <ul type="disc">
+      <li>Acts as gNB/O-DU/O-CU executing commands from RIC.</li>
+      <li>Reports live KPIs to RIC and performs control actions.</li>
+      <li>Forms the physical execution layer of the O-RAN architecture.</li>
+    </ul>
+  </li>
+</ul>
+>>>>>>> 966ff78f8668a327c76f5654f651d536518cdc86
