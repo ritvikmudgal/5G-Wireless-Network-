@@ -550,3 +550,36 @@ It is the first thing UE decodes after sync
 Used to notify idle UEs about incoming data or calls.
 <br>Sent through PCCH → PCH → PDCCH/PDSCH.
 <br>UE wakes periodically to check paging frame (DRX cycle).
+</ul>
+<h1 align="center">O-RAN</h2>
+<ul><li>Traditional Basestation-<br>
+<ul type="disc"><li>BBU-Performs baseband processing of the signal recieved from the 5GC
+<li>RU- modulates that signal into carrier band and sends it to the antenna via RF cable</ul>
+<li>Contemporary basestation-
+<ul type="disc">
+<li>The RU moved closer to the antenna to avoid the power loss through RF cable.
+<li>The connection between RU and BBU is called Fronthaul
+<li>The connection between 5GC and BBU is called Backhaul</ul>
+<li>v-RAN- <br>
+<ul type="disc">
+<li>Instead of using proprietry hardware, COTS (Commercial of The Shelf is used.
+<li>All the functions of BBU are implemented on software.
+<li>Multiple fuctions from different BBUs are implemented on same CoTS using virtualization Layer. which is why it is called V-RAN instead of V-Basestation 
+<li>v-RAN is not Open as the fronthaul is still proprietry.</ul>
+<li>D-RAN- in distributed RAN, the BBUs are placed near the site Antenna, fronthaul is less expensive, low latency.
+<li>C-RAN- in central RAN, the BBUs are placed at a central location, expensive fronthaul
+<li>Cloud-RAN- the BBU is still at a central location but the BBU functionalities are implemented on cloud, which makes it easier to scale.
+<li>RAN Split Options</u></h2>
+<ul type="disc">
+  <li><b>Option 1:</b> No split; all layers in one unit (legacy LTE style).</li>
+  <li><b>Option 2:</b> Split between PDCP (CU) and RLC (DU); allows centralized control and virtualization.</li>
+  <li><b>Option 6:</b> Split between MAC (DU) and PHY (RU); low latency but needs high-speed link.</li>
+  <li><b>Option 7.2x:</b> Split between High-PHY (DU) and Low-PHY (RU); standard in Open RAN systems.</li>
+  <li><b>Option 8:</b> Split between PHY and RF; used in C-RAN with fiber connections.</li>
+  <li><b>Logical View:</b> CU → PDCP & RRC; DU → RLC, MAC, High-PHY; RU → Low-PHY & RF.</li>
+  <li><b>eCPRI Protocol:</b> Ethernet-based fronthaul interface for DU-RU communication, replacing traditional CPRI to save bandwidth and cost.</li>
+</ul>
+<li>The lower the split number → the more is done at the antenna site (hardware).<br>
+<li>The higher the split number → the more is done virtually (software).
+<li><b>Logical View:</b> CU → PDCP & RRC; DU → RLC, MAC, High-PHY; RU → Low-PHY & RF.</li>
+  <li><b>eCPRI Protocol:</b> Ethernet-based fronthaul interface for DU-RU communication, replacing traditional CPRI to save bandwidth and cost.</li>
