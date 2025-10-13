@@ -702,5 +702,3 @@ RRC falls under O-CU-CP and PDCP falls under O-CU-UP.
   <img src="JSON.png">
   </li>
 </ul>
-
->>>>>>> 966ff78f8668a327c76f5654f651d536518cdc86
